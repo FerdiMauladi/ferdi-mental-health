@@ -32,7 +32,7 @@ class AboutScreen extends StatelessWidget {
                 height: 140,
                 child: CircleAvatar(
                   backgroundColor: Color(0xFFD9D9D9),
-                  backgroundImage: AssetImage('assets/images/about.png'),
+                  backgroundImage: AssetImage('assets/images/profile.JPG'),
                 ),
               ),
             ],

@@ -20,6 +20,10 @@ class _DiagnosaScreenState extends State<DiagnosaScreen> {
   void initState() {
     super.initState();
     _controller = PageController(initialPage: 0);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var viewModel = Provider.of<DiagnosaViewModel>(context, listen: false);
+      viewModel.deleteDataDiagnosa();
+    });
   }
 
   @override

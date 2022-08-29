@@ -3,6 +3,12 @@ import 'package:mental_health/Screen/homepage/homepage_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewmodel/diagnosa_viewmodel.dart';
+import 'component/bipolar_screen.dart';
+import 'component/depresi_screen.dart';
+import 'component/emptydiagnosa_screen.dart';
+import 'component/paranoid_screen.dart';
+import 'component/ptsd_screen.dart';
+import 'component/skizofrenia_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({Key? key}) : super(key: key);
@@ -10,17 +16,10 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dataDiagnosa = Provider.of<DiagnosaViewModel>(context);
-    print(dataDiagnosa.dataDiagnosa.length);
-    for (var i = 0; i < dataDiagnosa.dataDiagnosa.length; i++) {
-      print(dataDiagnosa.dataDiagnosa[i].question);
-      print(dataDiagnosa.dataDiagnosa[i].answer);
-    }
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: const Color(0xFFEEEEEE),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
           Container(
             width: 180,
@@ -35,94 +34,83 @@ class ResultScreen extends StatelessWidget {
               ),
             ),
           ),
-          ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              Container(
+          buildScreen(dataDiagnosa),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomepageScreen(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: Container(
                 margin: const EdgeInsets.only(
-                  left: 25,
+                  top: 15,
+                  bottom: 40,
                   right: 25,
                 ),
-                child: Column(
-                  children: [
-                    Column(
-                      children: const [
-                        Text(
-                          'Maaf diagnosamu belum di temukan',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 406,
-                          height: 306,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: AssetImage(
-                                'assets/images/empty-konsultasi.png',
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 15, bottom: 20),
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Segera hubungi psikolog terdekat untuk konsultasi',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Color(
+                    0xFF50C2C9,
+                  ),
+                  size: 40,
                 ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomepageScreen(),
-                ),
-                (Route<dynamic> route) => false,
-              );
-            },
-            child: Container(
-              margin: const EdgeInsets.only(
-                top: 15,
-                bottom: 40,
-                right: 25,
-              ),
-              alignment: Alignment.centerRight,
-              child: const Icon(
-                Icons.arrow_forward_ios,
-                color: Color(
-                  0xFF50C2C9,
-                ),
-                size: 40,
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  buildScreen(DiagnosaViewModel diagnosaViewModel) {
+    if (diagnosaViewModel.dataDiagnosa[0].answer == true &&
+        diagnosaViewModel.dataDiagnosa[1].answer == true &&
+        diagnosaViewModel.dataDiagnosa[2].answer == true &&
+        diagnosaViewModel.dataDiagnosa[3].answer == true &&
+        diagnosaViewModel.dataDiagnosa[4].answer == true) {
+      return const SkizofreniaScreen();
+    }
+    if (diagnosaViewModel.dataDiagnosa[0].answer == true &&
+        diagnosaViewModel.dataDiagnosa[6].answer == true &&
+        diagnosaViewModel.dataDiagnosa[7].answer == true &&
+        diagnosaViewModel.dataDiagnosa[8].answer == true &&
+        diagnosaViewModel.dataDiagnosa[9].answer == true &&
+        diagnosaViewModel.dataDiagnosa[10].answer == true &&
+        diagnosaViewModel.dataDiagnosa[11].answer == true) {
+      return const PTSDScreen();
+    }
+    if (diagnosaViewModel.dataDiagnosa[0].answer == true &&
+        diagnosaViewModel.dataDiagnosa[6].answer == true &&
+        diagnosaViewModel.dataDiagnosa[11].answer == true &&
+        diagnosaViewModel.dataDiagnosa[12].answer == true &&
+        diagnosaViewModel.dataDiagnosa[13].answer == true &&
+        diagnosaViewModel.dataDiagnosa[14].answer == true) {
+      return const DepresiScreen();
+    }
+    if (diagnosaViewModel.dataDiagnosa[12].answer == true &&
+        diagnosaViewModel.dataDiagnosa[13].answer == true &&
+        diagnosaViewModel.dataDiagnosa[15].answer == true &&
+        diagnosaViewModel.dataDiagnosa[16].answer == true &&
+        diagnosaViewModel.dataDiagnosa[17].answer == true &&
+        diagnosaViewModel.dataDiagnosa[18].answer == true &&
+        diagnosaViewModel.dataDiagnosa[19].answer == true) {
+      return const BipolarScreen();
+    }
+    if (diagnosaViewModel.dataDiagnosa[3].answer == true &&
+        diagnosaViewModel.dataDiagnosa[8].answer == true &&
+        diagnosaViewModel.dataDiagnosa[20].answer == true &&
+        diagnosaViewModel.dataDiagnosa[21].answer == true &&
+        diagnosaViewModel.dataDiagnosa[22].answer == true &&
+        diagnosaViewModel.dataDiagnosa[23].answer == true) {
+      return const ParanoidScreen();
+    } else {
+      return const EmptyDiagnosa();
+    }
   }
 }

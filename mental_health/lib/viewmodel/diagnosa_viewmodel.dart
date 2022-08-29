@@ -7,7 +7,7 @@ class DiagnosaViewModel extends ChangeNotifier {
   List<DiagnosaModel> get dataDiagnosa => List.unmodifiable(_dataDiagnosa);
 
   void deleteDataDiagnosa() {
-    dataDiagnosa.clear();
+    _dataDiagnosa.clear();
     notifyListeners();
   }
 

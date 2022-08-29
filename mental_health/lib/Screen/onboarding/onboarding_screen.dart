@@ -16,6 +16,11 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   var _controller = PageController();
   int? _currentPage = 0;
+  var listPage = const [
+    OnboardingScreenOne(),
+    OnboardingScreenTwo(),
+    OnboardingScreenThree(),
+  ];
 
   @override
   void initState() {
@@ -58,11 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   _currentPage = index;
                 });
               },
-              children: const [
-                OnboardingScreenOne(),
-                OnboardingScreenTwo(),
-                OnboardingScreenThree(),
-              ],
+              children: listPage,
             ),
           ),
           Container(
